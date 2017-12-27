@@ -1,5 +1,9 @@
 {
   "name": "Todo",
+  "quokka": {
+    "babel": true
+  },
+  "babel": {},
   "version": "0.0.0",
   "description": "Todo app using React, Redux and Webpack. Based on the example from Dan Abramov's excellent tutorial (https://egghead.io/series/getting-started-with-redux)",
   "scripts": {
