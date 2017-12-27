@@ -7,6 +7,7 @@ module.exports = {
     path: __dirname + "/dist",
     filename: "./js/app.js"
   },
+  devtool: "source-map",
   module: {
     loaders: [
       {
@@ -16,19 +17,21 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ["react-hot", 'babel?'+JSON.stringify(
-          {
-            presets: ['react', 'es2015'],
-            "plugins": [
-              "syntax-class-properties",
-              "syntax-decorators",
-              "syntax-object-rest-spread",
+        loaders: [
+          "react-hot",
+          "babel?" +
+            JSON.stringify({
+              presets: ["react", "es2015"],
+              plugins: [
+                "syntax-class-properties",
+                "syntax-decorators",
+                "syntax-object-rest-spread",
 
-              "transform-class-properties",
-              "transform-object-rest-spread"
-            ]
-          }
-        )]
+                "transform-class-properties",
+                "transform-object-rest-spread"
+              ]
+            })
+        ]
       }
     ]
   }
