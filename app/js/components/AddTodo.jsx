@@ -1,11 +1,12 @@
-import React from "react";
+import React, { StatelessComponent } from "react"; // eslint-disable-line no-unused-vars
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { addTodo } from "../actions";
 
-let AddTodo = ({ dispatch }) => {
+/** @type { StatelessComponent<{dispatch}> } */
+const AddTodo = ({ dispatch }) => {
   let input;
-
   return (
     <div>
       <input
@@ -25,3 +26,7 @@ let AddTodo = ({ dispatch }) => {
   );
 };
 export default connect()(AddTodo);
+
+AddTodo.propTypes = {
+  dispatch: PropTypes.func
+};
