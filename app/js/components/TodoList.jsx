@@ -19,7 +19,7 @@ const Todo = ({ onClick, completed, text }) => (
 
 Todo.propTypes = {
   onClick: PropTypes.func,
-  completed: PropTypes.func,
+  completed: PropTypes.bool,
   text: PropTypes.string
 };
 
