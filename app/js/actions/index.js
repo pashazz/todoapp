@@ -1,23 +1,18 @@
 let nextTodoId = 0;
 
-export const addTodo = (text) => {
-  return {
-    type: 'ADD_TODO',
-    id: nextTodoId++,
-    text
-  };
-};
+//es6 simplified functions
+export const addTodo = (text) => ({
+   type: 'ADD_TODO',
+   text
+});
 
-export const toggleTodo = (id) => {
-  return {
+export const toggleTodo = (id) => ({
+
     type: 'TOGGLE_TODO',
     id
-  };
-};
+});
 
-export const setVisibilityFilter = (filter) => {
-  return {
+export const setVisibilityFilter = (filter) => ({
     type: 'SET_VISIBILITY_FILTER',
     filter
-  };
-};
+});
