@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 
 import { toggleTodo } from "../actions";
 
-/** @type { StatelessComponent<{onClick, completed, text}> } */
-const Todo = ({ onClick, completed, text }) => (
-  <li
+/** @type { StatelessComponent<{key, onClick, completed, text}> } */
+const Todo = ({ key, onClick, completed, text }) => (
+  <li key={key}
     onClick={onClick}
     style={{
       textDecoration: completed ? "line-through" : "none"
@@ -27,7 +27,10 @@ Todo.propTypes = {
 const TodoList = ({ todos, onTodoClick }) => (
   <ul>
     {todos.map(todo => (
-      <Todo key={todo.id} {...todo} onClick={() => onTodoClick(todo.id)} />
+      <Todo
+          key={todo.id}
+          {...todo}
+            onClick={() => onTodoClick(todo.id)} />
     ))}
   </ul>
 );

@@ -6,21 +6,22 @@ import AddTodo from "./AddTodo.jsx";
 import TodoList from "./TodoList.jsx";
 import Footer from "./Footer.jsx";
 import todoApp from "../reducers/";
+import {loadState, saveState} from "../localStorage";
+import throttle from 'lodash/throttle';
 
-
-
-const persistedState = {
-  todos : [{
-      id: '0',
-      text: 'welcome back',
-      completed: false,
-  }]
-};
+const persistedState = loadState();
 
 const store = createStore(
     todoApp,
-    persistedState
+    persistedState //initial state
 );
+
+store.subscribe(throttle(() =>
+{
+    saveState(
+        {todos: store.getState().todos }); //Save to persistent browser cache
+}, 1000));
+
 const TodoApp = () => (
   <div>
     <AddTodo />

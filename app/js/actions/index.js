@@ -1,8 +1,10 @@
-let nextTodoId = 0;
+import {v4} from 'uuid';
+
 
 //es6 simplified functions
 export const addTodo = (text) => ({
    type: 'ADD_TODO',
+    id: v4(),
    text
 });
 
