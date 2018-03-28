@@ -1,15 +1,26 @@
 import {loadState, saveState} from "./localStorage";
-import {createStore } from 'redux';
+import {createStore, applyMiddleware } from 'redux';
+import logger from 'redux-log-diff';
 
 import throttle from 'lodash/throttle';
 import todoApp from './reducers';
 
+const myPromiseMiddleware = (store) => (next) => (action) =>
+{
+    if (typeof action.then === 'function')
+        return action.then(next); //as if then(result => next(result))
+    else
+        return next(action);
+
+
+};
 
 const configureStore = () => {
-    const persistedState = loadState();
+
+
     const store = createStore(
         todoApp,
-        persistedState
+        applyMiddleware(myPromiseMiddleware, logger)
     );
 
     store.subscribe(throttle(() => {

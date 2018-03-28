@@ -19,9 +19,9 @@
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-redux": "^4.4.5",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "redux": "^3.5.2"
+    "react-router": "^3.2.1",
+    "redux": "^3.5.2",
+    "redux-log-diff": "^1.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
