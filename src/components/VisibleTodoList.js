@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { toggleTodo, fetchTodos } from '../actions';
+import { toggleTodo, fetchTodos, requestTodos } from '../actions';
 import TodoList from './TodoList';
-import {selectVisibleTodos} from "../reducers";
+import {selectTodos, selectIsFetching} from "../reducers";
 import {withRouter} from 'react-router';
 
 
 //                              props unpacking
 const mapStateToProps = (state, {params}) => ({
-    todos: selectVisibleTodos(state, params.filter || 'all'),
+    todos: selectTodos(state, params.filter || 'all'),
     filter: params.filter || 'all', //if params.filter is undefined, return 'all'
 });
 
@@ -26,28 +26,30 @@ class VisibleTodoList extends Component
         this.fetchData();
     }
     fetchData() {
-        const {filter, fetchTodos} = this.props;
-
+        const {filter, fetchTodos, requestTodos} = this.props;
+        requestTodos(filter);
         fetchTodos(filter);
-
-
-
     }
+
     componentDidUpdate(prevProps)
     {
         if (this.props.filter !== prevProps.filter)
             this.fetchData();
     }
-    render()
-    {
-     return <TodoList {...this.props}/>
+    render() {
+        const {toggleTodo, isLoading, todos} = this.props;
+        if (isLoading && !todos.length())
+            return <p> Loading... </p>;
+
+        return <TodoList onTodoClick={toggleTodo} todos={todos}/>;
     }
+
 
 }
 
 VisibleTodoList = withRouter(connect(
   mapStateToProps,
-    {onTodoClick: toggleTodo, fetchTodos : fetchTodos}
+    {toggleTodo, fetchTodos, requestTodos}
 )(VisibleTodoList));
 
 //withRouter добавляет параметры из роутера в props компонента
