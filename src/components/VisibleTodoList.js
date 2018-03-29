@@ -26,8 +26,7 @@ class VisibleTodoList extends Component
         this.fetchData();
     }
     fetchData() {
-        const {filter, fetchTodos, requestTodos} = this.props;
-        requestTodos(filter);
+        const {filter, fetchTodos} = this.props;
         fetchTodos(filter);
     }
 
@@ -49,7 +48,7 @@ class VisibleTodoList extends Component
 
 VisibleTodoList = withRouter(connect(
   mapStateToProps,
-    {toggleTodo, fetchTodos, requestTodos}
+    {toggleTodo, fetchTodos}
 )(VisibleTodoList));
 
 //withRouter добавляет параметры из роутера в props компонента

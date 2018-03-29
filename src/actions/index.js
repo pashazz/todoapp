@@ -1,6 +1,6 @@
 import { v4 } from 'node-uuid';
 import * as api from '../api';
-
+import {selectIsFetching} from "../reducers";
 
 
 export const addTodo = (text) => ({
@@ -28,8 +28,22 @@ const receiveTodos = (response, filter) =>(
     type: 'RECEIVE_TODOS', filter, response
 });
 
-export const fetchTodos = (filter) => api.fetchTodos(filter).then(
-    data => receiveTodos(data, filter));
+//Dispatch requestTodos and then fetchTodos
+export const fetchTodos = (filter) => (dispatch, getState) =>
+{
+    if (selectIsFetching(getState(), filter))
+        return Promise.resolve();
+    dispatch(requestTodos(filter));
+    return api.fetchTodos(filter).then(
+        data =>
+        {
+            dispatch(receiveTodos(data, filter));
+        },
+        error => {
+            dispatch({type: 'FETCH_TODOS_FAILURE', filter,
+            message: error.message || 'Something went wrong'});
+        });
+};
 
 //export const fetchTodos = (filter) => {
 //

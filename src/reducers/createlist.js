@@ -19,6 +19,7 @@ const createList = (filter) =>
             case 'REQUEST_TODOS':
                 return true;
             case 'RECEIVE_TODOS':
+            case 'FETCH_TODOS_FAILURE':
                 return false;
             default:
                 return state;

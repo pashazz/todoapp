@@ -1,6 +1,7 @@
 import {loadState, saveState} from "./localStorage";
 import {createStore, applyMiddleware } from 'redux';
 import logger from 'redux-log-diff';
+import thunk from 'redux-thunk';
 
 import throttle from 'lodash/throttle';
 import todoApp from './reducers';
@@ -20,7 +21,7 @@ const configureStore = () => {
 
     const store = createStore(
         todoApp,
-        applyMiddleware(myPromiseMiddleware, logger)
+        applyMiddleware(thunk, myPromiseMiddleware, logger)
     );
 
     store.subscribe(throttle(() => {
