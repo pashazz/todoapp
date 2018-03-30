@@ -30,3 +30,5 @@ export const selectTodos = (state, filter) => {
 export const selectIsFetching = (state, filter) =>
     fromCreateList.selectIsFetching(state.listByFilter[filter]);
 
+export const selectErrorMessage = (state, filter) =>
+    fromCreateList.selectErrorMessage(state.listByFilter[filter]);
