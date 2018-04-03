@@ -3,11 +3,12 @@ import * as api from '../api';
 import {selectIsFetching} from "../reducers";
 
 
-export const addTodo = (text) => ({
-  type: 'ADD_TODO',
-  id: v4(),
-  text,
-});
+export const addTodo = (text) => (dispatch) =>
+    api.addTodo(text).then(response =>
+    {
+        dispatch({ type: 'ADD_TODO_SUCCESS', response});
+    });
+
 
 export const requestTodos = (filter) => (
     {
@@ -17,10 +18,11 @@ export const requestTodos = (filter) => (
 );
 
 
-export const toggleTodo = (id) => ({
-  type: 'TOGGLE_TODO',
-  id,
-});
+export const toggleTodo = (id) => (dispatch) =>
+    api.toggleTodo(id).then(response =>
+    {
+        dispatch({type : 'TOGGLE_TODO_SUCCESS', response})
+    });
 
 //Emitted when an API call is received the data
 const receiveTodos = (response, filter) =>(

@@ -3,16 +3,36 @@ import {combineReducers} from 'redux';
 /// isFetching - if it's been fetched
 /// errorMessage - an error message to show
 const createList = (filter) => {
+    /**
+     *
+     * @param state
+     * @param action
+     * @returns list of ids
+     */
     const ids = (state = [], action) => {
-        if (action.filter !== filter)
-            return state;
+
         switch (action.type) {
             case 'RECEIVE_TODOS':
+                if (action.filter !== filter)
+                    return state;
                 return action.response.map(todo => todo.id);
+            case 'ADD_TODO_SUCCESS':
+                if (action.filter === 'completed')
+                    return state;
+                else
+                {
+                    return [...state, action.response.id];
+                }
             default:
                 return state;
         }
     };
+    /**
+     *
+     * @param state
+     * @param action
+     * @returns {boolean}
+     */
     const isFetching = (state = false, action) => {
         switch (action.type) {
             case 'REQUEST_TODOS':
