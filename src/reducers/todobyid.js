@@ -5,7 +5,7 @@
  * @returns object {id: todo, id2: todo2}
  */
 const todoById = (state = {}, action) => {
-    switch (action.type) {
+/*    switch (action.type) {
         case 'RECEIVE_TODOS':
             const nextState = {...state};
             action.response.forEach(todo => {nextState[todo.id] =  todo;});
@@ -14,7 +14,13 @@ const todoById = (state = {}, action) => {
             return {...state, [action.response.id] : action.response};
         default:
             return state;
-    }
+    }*/
+if (action.response)
+{
+    return {...state, ...action.response.entities.todos};
+}
+else
+    return state;
 };
 
 export default todoById;

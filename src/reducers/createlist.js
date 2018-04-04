@@ -3,6 +3,19 @@ import {combineReducers} from 'redux';
 /// isFetching - if it's been fetched
 /// errorMessage - an error message to show
 const createList = (filter) => {
+
+    const handleToggle = (state, action) => {
+        const { result: toggledId, entities } = action.response;
+        const { completed } = entities.todos[toggledId];
+        const shouldRemove = (
+            (completed && filter === 'active') ||
+            (!completed && filter === 'completed')
+        );
+        return shouldRemove ?
+            state.filter(id => id !== toggledId) :
+            state;
+    };
+
     /**
      *
      * @param state
@@ -15,14 +28,16 @@ const createList = (filter) => {
             case 'RECEIVE_TODOS':
                 if (action.filter !== filter)
                     return state;
-                return action.response.map(todo => todo.id);
+                return action.response.result;
             case 'ADD_TODO_SUCCESS':
                 if (action.filter === 'completed')
                     return state;
                 else
                 {
-                    return [...state, action.response.id];
+                    return [...state, action.response.result];
                 }
+            /*case 'TOGGLE_TODO_SUCCESS':
+                return handleToggle(state, action);*/
             default:
                 return state;
         }
